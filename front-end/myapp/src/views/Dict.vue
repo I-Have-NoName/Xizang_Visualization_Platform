@@ -1,108 +1,109 @@
 <template>
-    <main>
-        <div class="title">
-            <h1>藏百科</h1>
-        </div>
-        <div class="slider">
-            <div class="slideshow">
-                <a href="javascript:void(0)" v-if="index!=0" @click="prev" class="left">
-                    <img src="static\img\arrow.png" alt="" />
-                </a>
-                <img :src="imgArr[index]" alt="" class="dict"/>
-            <!-- 左箭头 -->
-                
-                <!-- 右箭头 -->
-                <a href="javascript:void(0)" v-show="index<imgArr.length-1" @click="next" class="right">
-                    <img src="static\img\arrow2.png" alt="" />
-                </a>
-            </div>
-        </div>
-        
-    </main>
-    
+  <div class="swiper">
+    <div @mouseleave="leave" @mouseenter="enter">
+      <swiper ref="mySwiper" :options="swiperOption">
+        <swiper-slide v-for="(item) in clist"
+          :key="item.imgUrl">
+          <img :src="item.imgUrl" class="slide-img"/>
+        </swiper-slide>
+      </swiper>
+    </div>
+    <div @mouseenter="enter" @mouseleave="leave">
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+    </div>
+  </div>
 </template>
 <script>
+import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
+import 'swiper/css/swiper.css'
 export default {
-     data(){
-        return{
-        imgArr: [
-          "static/img/Mount_Everest_North_Face.jpg",
-          "static/img/mountain.jpeg",
-          "static/img/NamTso_scene.jpg",
-          "static/img/namucuo.jpeg",
-        ],
-        index: 0}
-      },
-      methods: {
-        fun:function(){
-                //setInterval(函数体,时间)
-                setInterval(this.next,2000)
+  components: {
+    Swiper,
+    SwiperSlide
+  },
+  data () {
+    return {
+      clist: [
+      {
+            imgUrl: ("/static/img/Yaks-Kailash-Manasarovar.jpg")
+          },
+          {
+            imgUrl: ("/static/img/NamTso_scene.jpg")
+          },
+          {
+            imgUrl: ("/static/img/Mount_Everest_North_Face.jpg")
+          },
+          {
+            imgUrl: ("/static/img/Potala_palace23.jpg")
+          },
+      ],
+      swiperOption: {
+        // 衔接滑动
+        loop: true,
+        // 自动滑动
+        autoplay: {
+          delay: 2000,
+          // 如果设置为true，当切换到最后一个slide时停止自动切换。
+          stopOnLastSlide: false,
+          // 如果设置为false，用户操作swiper之后自动切换不会停止，每次都会重新启动autoplay
+          disableOnInteraction: false
         },
-        prev:function(){
-          this.index--;
+        // 切换效果 "coverflow"（3d流）
+        effect: 'coverflow',
+        // 设置slider容器能够同时显示的slides数量
+        slidesPerView:4,
+        // 居中幻灯片。设定为true时，当前的active slide 会居中，而不是默认状态下的居左。
+        centeredSlides: true,
+        // 设置为true则点击slide会过渡到这个slide。
+        slideToClickedSlide: true,
+        coverflowEffect: {
+          // slide做3d旋转时Y轴的旋转角度
+          rotate: 0,
+          // 每个slide之间的拉伸值，越大slide靠得越紧。5.3.6 后可使用%百分比
+          stretch: 0,
+          // slide的位置深度。值越大z轴距离越远，看起来越小。
+          depth: 60,
+          // depth和rotate和stretch的倍率，相当于depth*modifier、rotate*modifier、stretch*modifier，值越大这三个参数的效果越明显。
+          modifier: 5,
+          // 是否开启slide阴影
+          slideShadows: true
         },
-        next:function(){
-          this.index++;
-          const len = this.imgArr.length;
-        //   console.log(len);
-          if(this.index == this.imgArr.length){
-             this.index = 0;
-          }
+        // 使用前进后退按钮来控制Swiper切换。
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev'
         }
       },
-      mounted:function(){    //生命周期  钩子函数   挂载完成
-            this.fun()
-      }
     }
+  },
+  computed: {
+    mySwiper () {
+      // mySwiper 是要绑定到标签中的ref属性
+      return this.$refs.mySwiper.$swiper
+    }
+  },
+  methods:{
+    enter () {
+      this.mySwiper.autoplay.stop()
+    },
+    leave () {
+      this.mySwiper.autoplay.start()
+    },
+  }
+}
 </script>
-<style>
-  * {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-  body, html {
-    height: 100%;
-  }
-  .title {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50px;
-    background-color: #f0f0f0;
-  }
-  h1 {
-    font-size: 24px;
-  }
-  .slider {
-    width: 100%;
-    height: calc(100% - 50px);
-    overflow: hidden;
-    position: relative;
-  }
-  .slideshow {
-    width: 100%;
-    height: 100%;
-    display: grid;
-    grid-template-columns: 70px,auto 70px;
-    justify-content: center;
-  }
-  .dict{
-    width: 800px;
-    height: 500px;
-    padding: 10px
-  }
-  
-  .left,.right {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 1;
-  }
-  .left {
-    left: 10px;
-  }
-  .right {
-    right: 10px;
-  }
+<style >
+.slide-img{
+  width: 100%;
+  height: 100%;
+}
+.swiper{
+  width:1200px;
+  height: 100%;
+  margin: 0 auto;
+  padding-top: 14%;
+  padding-bottom: 40px;
+}
+
 </style>
