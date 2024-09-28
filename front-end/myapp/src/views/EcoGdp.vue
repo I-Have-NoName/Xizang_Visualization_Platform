@@ -1,55 +1,58 @@
 <template>
-  <div class="grid-container">
-    <button class="backbutton" >
+  <div>
+    <!-- <button class="backbutton" >
       <img @click="backHome" class="arrow" src="/static/img/arrow.png">
-    </button>
-    <div class="card">
-      <AliGdp></AliGdp>
-    </div>
-    <div class="card">
-      <ChangduGdp></ChangduGdp>
-    </div>
-    <div class="card">
-      <LasaGdp></LasaGdp>
-    </div>
-    <div class="card">
-      <LinzhiGdp></LinzhiGdp>
-    </div>
-    <div class="card">
-      <NaquGdp></NaquGdp>
-    </div>
-    <div class="card">
-      <ShannanGdp></ShannanGdp>
-    </div>
-    <div class="action-button">
-      <button @click="show" class="button">
-        <img src="/static/img/action.png" alt="Action"> 点击开始预测
-      </button>
-    </div>
-    <div class="card">
-      <AliPre v-if="isShow"></AliPre>
-    </div>
-    <div class="card">
-      <ChangduPre v-if="isShow"></ChangduPre>
+    </button> -->
+    <div class="grid-container">
+    
+      <div class="card">
+        <AliGdp></AliGdp>
+      </div>
+      <div class="card">
+        <ChangduGdp></ChangduGdp>
+      </div>
+      <div class="card">
+        <LasaGdp></LasaGdp>
+      </div>
+      <div class="card">
+        <LinzhiGdp></LinzhiGdp>
+      </div>
+      <div class="card">
+        <NaquGdp></NaquGdp>
+      </div>
+      <div class="card">
+        <ShannanGdp></ShannanGdp>
+      </div>
+      <div class="action-button">
+        <button @click="show" class="button">
+          <img src="/static/img/action.png" alt="Action"> 点击开始预测
+        </button>
+      </div>
+      <div class="card">
+        <AliPre v-if="isShow"></AliPre>
+      </div>
+      <div class="card">
+        <ChangduPre v-if="isShow"></ChangduPre>
 
-    </div>
-    <div class="card">
-      <LasaPre v-if="isShow"></LasaPre>
+      </div>
+      <div class="card">
+        <LasaPre v-if="isShow"></LasaPre>
 
-    </div>
-    <div class="card">
-      <LinzhiPre v-if="isShow"></LinzhiPre>
+      </div>
+      <div class="card">
+        <LinzhiPre v-if="isShow"></LinzhiPre>
 
-    </div>
-    <div class="card">
-      <NaquPre v-if="isShow"></NaquPre>
+      </div>
+      <div class="card">
+        <NaquPre v-if="isShow"></NaquPre>
 
-    </div>
-    <div class="card">
-      <ShannanPre v-if="isShow"></ShannanPre>
-
+      </div>
+      <div class="card">
+        <ShannanPre v-if="isShow"></ShannanPre>
+      </div>
     </div>
   </div>
+  
 </template>
 
 <script>
@@ -100,14 +103,21 @@ export default {
     ShannanPre
   }
 }
+const backHome = () =>{
+  router.push({ name: 'HomePage' });
+}
 </script>
 
 <style scoped>
+  /* main{
+  display: flex;
+  top: 10px;
+}  */
 .backbutton {
   position: fixed;
   top: 1rem;
   left: 1rem;
-  width: 48px;
+  width: 36px;
   aspect-ratio: 1;
   padding: 0;
   border-radius: 12px;
@@ -116,6 +126,8 @@ export default {
   display: grid;
   place-items: center;
   cursor: pointer;
+  z-index: 1;
+  /* width: 65%; */
 }
 .grid-container {
   display: grid;
@@ -123,8 +135,10 @@ export default {
   gap: 20px; /* 网格间距 */
   padding: 20px; /* 容器内边距 */
   height: 50vh; /* 整个视口高度 */
+  margin-top: 50px;
   align-items: center; /* 垂直居中 */
   justify-items: center; /* 水平居中 */
+
 }
 
 .card {
@@ -166,5 +180,7 @@ export default {
 .button:hover {
   background-color: #45a049; /* 鼠标悬停时的背景颜色 */
 }
-
+img.arrow{
+  width: 48px;
+}
 </style>

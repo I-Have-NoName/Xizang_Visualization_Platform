@@ -1,19 +1,21 @@
 <template>
   <main>
-    <div class="content">
-      <h1>XiZang</h1>
-      <p>
-        西藏是个神秘的地方，有着灿烂的阳光，洁白的云朵，纯净的天空，稀薄的空气，连绵的雪山，安静的湖泊。 到了拉萨，我看见周围都是高山，山像连绵不断的长城，山上连一棵树木也没有，全是奇形怪状的石头。
-        一路朝拜，从不回首。有的耗尽家财，有的途中抱恙，但依然向前。朴实无华，人间天堂，大美西藏！我看见一座座山一座座山川，一座座山川相连，呀啦索那就是青藏高原。
-      </p>
-      <button class="btn" @click="goToHomePage">探索更多</button>
-    </div>
-
-    <div class="stack" ref="stack">
-      <div class="card" v-for="(card, index) in cardImages" :key="index">
-        <img :src="card" alt="" />
+    <!-- <div class="building"> -->
+      <div class="content">
+        <h1>XiZang</h1>
+        <p>
+          西藏是个神秘的地方，有着灿烂的阳光，洁白的云朵，纯净的天空，稀薄的空气，连绵的雪山，安静的湖泊。 到了拉萨，我看见周围都是高山，山像连绵不断的长城，山上连一棵树木也没有，全是奇形怪状的石头。
+          一路朝拜，从不回首。有的耗尽家财，有的途中抱恙，但依然向前。朴实无华，人间天堂，大美西藏！我看见一座座山一座座山川，一座座山川相连，呀啦索那就是青藏高原。
+        </p>
+        <button class="btn" @click="goToHomePage">探索更多</button>
       </div>
-    </div>
+
+      <div class="stack" ref="stack">
+        <div class="card" v-for="(card, index) in cardImages" :key="index">
+          <img :src="card" alt="" />
+        </div>
+      </div>
+    <!-- </div> -->
   </main>
 </template>
 
@@ -49,7 +51,9 @@ export default {
 
         setTimeout(() => {
           lastCard.classList.remove('swap');
-          stack.value.insertBefore(lastCard, stack.value.firstElementChild);
+          if(stack.value){
+            stack.value.insertBefore(lastCard, stack.value.firstElementChild);
+          }
         }, 1200);
       }
     };
@@ -61,7 +65,9 @@ export default {
 
         setTimeout(() => {
           card.classList.remove('swap');
-          stack.value.insertBefore(card, stack.value.firstElementChild);
+          if(stack.value){
+            stack.value.insertBefore(lastCard, stack.value.firstElementChild);
+          }
           resetAutoplay();
         }, 1200);
       }
@@ -120,11 +126,21 @@ main {
   grid-template-rows: 1fr;
   place-items: center;
   min-height: 100vh;
-  //background-color: #263a39;
+  /* background-color: #263a39; */
 }
 
 /* Content */
 
+/* #building{
+  background:url("../../../src/renwu.png");
+  /* width:100%; */
+  /* height:100%; */
+  /* position:fixed; */
+  /* background-size:100% 100%; */
+  /* position: absolute;
+  right: 0%;
+  background-repeat: no-repeat;
+ }   */
 .content {
   display: flex;
   flex-direction: column;  /* Ensures that children are stacked vertically */
@@ -132,7 +148,9 @@ main {
   padding-left: 120px;
   color: #c7c7c7c9;
 }
-
+.content p{
+  font-family: 'Courier New', Courier, monospace;
+}
 .content h1, .content p, .btn {
   width: 100%; /* Ensures they take full width of the .content div */
 }
@@ -189,13 +207,15 @@ main {
 
 .stack {
   position: relative;
+  right:0%;
+  top: 10%;
 }
 
 .card {
   position: absolute;
   transform: translate(-50%, -50%);
   top: 50%;
-  left: 50%;
+  left: 70%;
   width: 350px;
   height: 500px;
   display: flex;
@@ -252,6 +272,7 @@ main {
 .swap {
   animation: swap 1.3s ease-out forwards;
 }
+
 
 @keyframes swap {
   30% {

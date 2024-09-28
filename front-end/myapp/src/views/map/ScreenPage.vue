@@ -3,9 +3,9 @@
   <div class="screen-container" >
     <canvas class="canvas-wrap" id="triangle-lost-in-space" resize="true"></canvas>
     <header class="screen-header">
-      <div>
+      <!-- <div>
         <img src="/img/header_border_dark.png" alt="">
-      </div>
+      </div> -->
       <button @click="backHome">
         <img class="arrow" src="/static/img/arrow.png">
       </button>
@@ -13,7 +13,7 @@
         中央民族大学
 <!--        <img src="/static/img/logo.jpg"  alt=""/>-->
       </span>
-      <span class="title">藏族地区文旅大数据平台</span>
+      <span class="title">藏族地区文旅可视化平台</span>
       <div class="title-right">
         <span class="datetime">{{ currentTime }}</span>
       </div>
@@ -48,7 +48,11 @@
         </div>
       </section>
     </div>
+    <div class="predict">
+      <EcoGdp></EcoGdp>
+    </div>
   </div>
+  
 </template>
 
 <script>
@@ -59,6 +63,7 @@ import WordCloud from '@/components/map/WordCloud.vue'
 import PopularAttraction from '@/components/map/PopularAttraction.vue'
 import GdpHistory from '@/components/map/GdpHistory.vue'
 import {useRouter} from "vue-router/composables";
+import EcoGdp from '../EcoGdp.vue'
 
 export default {
   data () {
@@ -93,7 +98,8 @@ export default {
     XizangMap,
     WordCloud,
     PopularAttraction,
-    GdpHistory
+    GdpHistory,
+    EcoGdp
   }
 }
 </script>

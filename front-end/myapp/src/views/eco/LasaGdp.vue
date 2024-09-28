@@ -47,7 +47,7 @@ export default {
         grid: {
           left: '3%',
           top: '35%',
-          right: '4%',
+          right: '7%',
           bottom: '1%',
           containLabel: true
         },
@@ -75,7 +75,8 @@ export default {
         },
         xAxis: {
           type: 'category',
-          boundaryGap: false
+          boundaryGap: false,
+          // right:'100%'
         },
         yAxis: {
           type: 'value'

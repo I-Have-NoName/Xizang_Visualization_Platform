@@ -15,6 +15,8 @@ import AIPage from "@/views/AIPage.vue";
 import TravelPage from "@/views/TravelPage.vue";
 import AliGdp from "@/views/eco/AliGdp.vue";
 import EcoGdp from "@/views/EcoGdp.vue";
+import Dict from '@/views/Dict.vue'
+// import { component } from 'vue/types/umd'
 
 Vue.use(VueRouter)
 
@@ -81,6 +83,10 @@ const routes = [
   {
     path: '/lasa',
     component: testPage
+  },
+  {
+    path: '/dict',
+    component:Dict
   }
 ]
 

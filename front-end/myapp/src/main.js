@@ -11,14 +11,8 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import { OhVueIcon, addIcons } from "oh-vue-icons";
 import { FaFlag, RiZhihuFill } from "oh-vue-icons/icons";
-import Swiper, { Navigation, Pagination } from 'swiper';
-import VueAwesomeSwiper from 'vue-awesome-swiper';
-import 'swiper/swiper-bundle.css';
 
 
-Vue.use(VueAwesomeSwiper);
-
-Swiper.use([Navigation, Pagination]);
 
 addIcons(FaFlag, RiZhihuFill);
 

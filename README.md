@@ -50,7 +50,7 @@ npm run serve
 
 ​			name（景点名称）varchar
 
-​			imgUrl(图片地址） varchar
+​			imgUrl（图片地址） varchar
 
 ​			introduction(景点简介)	varchar
 

@@ -3,12 +3,12 @@
     <button class="backbutton" >
       <img @click="backHome" class="arrow" src="/static/img/arrow.png">
     </button>
-    <h2>西藏文旅平台</h2>
+    <h2>云上藏境</h2>
     <p>一体化的，帮助你了解藏族地区发展，了解景点、经济、发展的一站式平台。</p>
     <div class="cards">
       <div class="card" v-for="member in teamMembers" :key="member.name">
         <div class="card-img-wrapper">
-          <a :href="member.url"><img :src="member.image" :alt="member.name"></a>>
+          <a :href="member.url"><img :src="member.image" :alt="member.name"></a>
         </div>
 <!--        <a href="#" class="social-icon">-->
 <!--&lt;!&ndash;          <i :class="member.socialIcon"></i>&ndash;&gt;-->
@@ -46,11 +46,12 @@ export default {
         },
         // Add more members as needed
         {
-          name: '各地经济变化',
+          name: '藏百科',
           role: '预测发展',
-          image: '/static/img/money.jpeg',
+          image: '/static/img/background-home.jpg',
           socialIcon: 'fa-brands fa-facebook-f',
-          url: '/#/eco',
+          // url: '/#/eco',
+          url:'/#/dict'
         },
         {
           name: '可视化大屏',
@@ -143,9 +144,7 @@ section {
   width: calc(min(90rem, 90%));
   margin-inline: auto;
 
-  p,
-  h2,
-  h3 {
+  p,h2,h3 {
     letter-spacing: 0.035rem;
   }
 
@@ -198,11 +197,14 @@ section {
       }
 
       img {
-        filter: grayscale(100%);
+        filter: grayscale(50%);
         transition: 0.5s ease;
 
         &:hover {
           filter: grayscale(0%);
+          transform: scale(1.2,1.2);
+          box-shadow: 20px,20px,0px
+          /* margin-top: 90px; */
         }
       }
 

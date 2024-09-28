@@ -249,6 +249,10 @@ button {
 
 }
 
+img.arrow {
+    width: 36px;
+}
+
 [aria-pressed=true] svg path:last-of-type,
 [aria-pressed=false] svg path:first-of-type {
   display: none;

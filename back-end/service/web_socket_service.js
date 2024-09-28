@@ -12,13 +12,13 @@ module.exports.listen = () => {
             const parse = JSON.parse(msg)
             // 获取前端的请求行为
             const action = parse.action
-            if(action === 'getData'){
+            if (action === 'getData') {
                 let filepath = `../data/` + parse.chartName + '.json'
-                filepath = path.join(__dirname , filepath)
+                filepath = path.join(__dirname, filepath)
                 // 增加data字段
                 parse.data = await fileUtils.getFileJsonData(filepath)
                 client.send(JSON.stringify(parse))
-            }else {
+            } else {
                 // 不请求数据 原封不动返回至客户端
                 ws.clients.forEach(client => {
                     client.send(msg)
