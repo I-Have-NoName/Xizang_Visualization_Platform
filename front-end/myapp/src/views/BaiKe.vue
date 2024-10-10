@@ -1,10 +1,17 @@
 <template>
-    <div class="baike-list">
+    <div>
+      <button @click="backHome">
+        <img class="arrow" src="/static/img/arrow.png">
+      </button>
+      <div class="baike-list">
       <BaikeEntry v-for="(item, index) in entries" :key="index" :entry="item" />
+      </div>
     </div>
   </template>
   
+
   <script>
+  import {useRouter} from "vue-router/composables";
   import BaikeEntry from './/BaikeEntry.vue';
   import baikeData from '../../src/assets/zangdijingzhi.json';
   
@@ -16,14 +23,25 @@
       return {
         entries: baikeData
       };
+    },
+    mounted(){
+      this.router = useRouter()
+    },
+    methods:{
+    backHome(){
+      this.router.push({name:'HomePage'})
     }
+  },
+    
   };
   
   </script>
   
   <style scoped>
+
+  
 .entry {
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   background-color: #fff;
   border: 1px solid #e5e5e5;
@@ -35,9 +53,9 @@
   max-width: 1000px;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 500px) {
   .entry {
-    flex-direction: row;
+    flex-direction: column;
   }
 }
 
@@ -71,9 +89,53 @@
 }
 
 .entry-image img {
-  width: 100%;
-  height: auto;
+  width: 500px;
+  height: 300px;
   border-radius: 5px;
+}
+
+button {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  width: 48px;
+  aspect-ratio: 1;
+  padding: 0;
+  border-radius: 12px;
+  border: 0;
+  background: transparent;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.arrow{
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  width: 48px;
+  aspect-ratio: 1;
+  padding: 0;
+  border-radius: 12px;
+  border: 0;
+  background: transparent;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+
+}
+
+img.arrow {
+    width: 36px;
+}
+
+[aria-pressed=true] svg path:last-of-type,
+[aria-pressed=false] svg path:first-of-type {
+  display: none;
+}
+
+button svg {
+  width: 65%;
 }
 </style>
   

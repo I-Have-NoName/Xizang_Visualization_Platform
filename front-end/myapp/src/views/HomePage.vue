@@ -42,7 +42,8 @@ export default {
           role: '旅游胜地',
           image: '/static/img/mountain.jpeg',
           socialIcon: 'fa-brands fa-facebook-f',
-          url: '/#/travel'
+          // url: '/#/travel'
+          url:'/#/baike'
         },
         // Add more members as needed
         {
@@ -52,6 +53,7 @@ export default {
           socialIcon: 'fa-brands fa-facebook-f',
           // url: '/#/eco',
           url:'/#/dict'
+          // url:'/#/baike'
         },
         {
           name: '可视化大屏',

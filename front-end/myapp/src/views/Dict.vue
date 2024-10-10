@@ -1,10 +1,24 @@
 <template>
-  <div class="swiper">
+  <div>
+    <div class="dictheader" style="height: 60px">
+      <button @click="backHome">
+        <img class="arrow" src="/static/img/arrow.png">
+    </button>
+    </div>
+    <span style="text-align: center; height: 40px;">
+      <h1>藏百科</h1>
+    </span>
+    <div class="swiper">
     <div @mouseleave="leave" @mouseenter="enter">
       <swiper ref="mySwiper" :options="swiperOption">
-        <swiper-slide v-for="(item) in clist"
-          :key="item.imgUrl">
-          <img :src="item.imgUrl" class="slide-img"/>
+        <!-- <swiper-slide v-for="(item) in clist"
+          :key="item.imgUrl"> -->
+          <swiper-slide v-for="(item, index) in entries" :key="index" class="slide">
+          <!-- <img :src="item.imgUrl" class="slide-img"/> -->
+          <!-- <div class="baike-list"> -->
+        <BaikeEntry  :entry="item"  class="baike-list" />
+          <!-- <BaikeEntry/> -->
+      <!-- </div> -->
         </swiper-slide>
       </swiper>
     </div>
@@ -13,14 +27,19 @@
       <div class="swiper-button-next"></div>
     </div>
   </div>
+  </div>
 </template>
 <script>
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
+import {useRouter} from "vue-router/composables";
 import 'swiper/css/swiper.css'
+import BaikeEntry from './/BaikeEntry.vue';
+import baikeData from '../../src/assets/zangdijingzhi.json';
 export default {
   components: {
     Swiper,
-    SwiperSlide
+    SwiperSlide,
+    BaikeEntry
   },
   data () {
     return {
@@ -52,7 +71,7 @@ export default {
         // 切换效果 "coverflow"（3d流）
         effect: 'coverflow',
         // 设置slider容器能够同时显示的slides数量
-        slidesPerView:4,
+        slidesPerView:3,
         // 居中幻灯片。设定为true时，当前的active slide 会居中，而不是默认状态下的居左。
         centeredSlides: true,
         // 设置为true则点击slide会过渡到这个slide。
@@ -61,11 +80,11 @@ export default {
           // slide做3d旋转时Y轴的旋转角度
           rotate: 0,
           // 每个slide之间的拉伸值，越大slide靠得越紧。5.3.6 后可使用%百分比
-          stretch: 0,
+          stretch: 10,
           // slide的位置深度。值越大z轴距离越远，看起来越小。
-          depth: 60,
+          depth: 70,
           // depth和rotate和stretch的倍率，相当于depth*modifier、rotate*modifier、stretch*modifier，值越大这三个参数的效果越明显。
-          modifier: 5,
+          modifier: 6,
           // 是否开启slide阴影
           slideShadows: true
         },
@@ -75,6 +94,7 @@ export default {
           prevEl: '.swiper-button-prev'
         }
       },
+      entries: baikeData
     }
   },
   computed: {
@@ -83,6 +103,9 @@ export default {
       return this.$refs.mySwiper.$swiper
     }
   },
+  mounted(){
+    this.router = useRouter()
+  },
   methods:{
     enter () {
       this.mySwiper.autoplay.stop()
@@ -90,20 +113,62 @@ export default {
     leave () {
       this.mySwiper.autoplay.start()
     },
+    backHome(){
+      this.router.push({name:'HomePage'})
+    }
   }
 }
 </script>
 <style >
-.slide-img{
+
+.swiper{
+  width:90%;
+  height: 100%;
+  margin: 0 auto;
+  padding-top: 0%;
+  padding-bottom: 40px;
+}
+.baike-list{
+  /* display: flex; */
   width: 100%;
   height: 100%;
 }
-.swiper{
-  width:1200px;
-  height: 100%;
-  margin: 0 auto;
-  padding-top: 14%;
-  padding-bottom: 40px;
+.slide{
+  width: 100px;
+  height: 650px;
+}
+button {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  width: 48px;
+  aspect-ratio: 1;
+  padding: 0;
+  border-radius: 12px;
+  border: 0;
+  background: transparent;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
 }
 
+.arrow{
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  width: 48px;
+  aspect-ratio: 1;
+  padding: 0;
+  border-radius: 12px;
+  border: 0;
+  background: transparent;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+
+}
+
+img.arrow {
+    width: 36px;
+}
 </style>

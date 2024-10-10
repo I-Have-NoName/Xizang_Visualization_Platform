@@ -103,9 +103,7 @@ export default {
     ShannanPre
   }
 }
-const backHome = () =>{
-  router.push({ name: 'HomePage' });
-}
+
 </script>
 
 <style scoped>
