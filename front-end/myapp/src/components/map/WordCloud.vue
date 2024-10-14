@@ -7,11 +7,12 @@
 
 <script>
 import * as echarts from 'echarts';
-
+import baikeData from '../../assets/zangbaike.json';
 export default {data() {
     return {
       chartInstance: null,
       allData: null,
+      entry:baikeData
     };
   },
   created () {
@@ -42,6 +43,10 @@ export default {data() {
       this.allData = ret
     },
     drawWordCloud() {
+      const wordCloudData = this.entry.map(item => ({
+        name: item.name,
+        value: Math.floor(Math.random() * 9000) + 1000 // 随机生成 1000 到 10000 之间的值
+      }));
       // 基于准备好的dom，初始化echarts实例
       this.chartInstance = echarts.init(this.$refs.wordcloudChart,'chalk');
       // 配置项
@@ -75,31 +80,19 @@ export default {data() {
               textShadowColor: '#333'
             }
           },
-          data: [
-            {name: '布达拉宫', value: 10000},
-            {name: '雅鲁藏布大峡谷', value: 6181},
-            {name: '绕佛塔', value: 4386},
-            {name: '撒风马旗', value: 4055},
-            {name: '望果节', value: 2467},
-            {name: '雪顿节', value: 2244},
-            {name: '藏戏', value: 1898},
-            {name: '牦牛肉', value: 1484},
-            {name: '青稞酒', value: 1112},
-            {name: '酥油茶', value: 965},
-            {name: '糌粑', value: 847},
-            {name: '萨普神山', value: 582},
-            {name: '古格王国都城遗址', value: 555},
-            {name: '冈仁波齐', value: 550},
-            {name: '珠穆朗玛峰', value: 550},
-            {name: '扎什伦布寺', value: 350},
-            {name: '羊卓雍措', value: 344},
-            {name: '纳木措', value: 341},
-            {name: '大昭寺', value: 331},
-            {name: '跳神', value: 307},
-          ]
+          data: wordCloudData
         }]
       };
       this.chartInstance.setOption(option);
+      
+      this.chartInstance.on('click', params => {
+        const name = params.name; // 获取点击的词条的 name
+        this.navigateToPage(name); // 跳转到对应的页面
+      });
+    },
+    navigateToPage(name) {
+      // 假设路由中的页面路径和词条名相同
+      this.$router.push({ name: 'entryPage', params: { entryName: name } });
     },
     handleResize() {
       if (this.chartInstance != null) {

@@ -17,6 +17,7 @@ import AliGdp from "@/views/eco/AliGdp.vue";
 import EcoGdp from "@/views/EcoGdp.vue";
 import Dict from '@/views/Dict.vue'
 import BaiKe from '@/views/BaiKe.vue'
+import EntryPage from '@/views/EntryPage.vue'
 // import { component } from 'vue/types/umd'
 // import { component } from 'vue/types/umd'
 
@@ -93,7 +94,18 @@ const routes = [
   {
     path: '/baike',
     component:BaiKe
+  },
+  {
+    path: '/baiked/:id',
+    name: 'BaikeDetail',
+    component: () => import('../views/BaikeDetail.vue')
+  },
+  {
+    path: '/entry/:entryName',
+    name: 'entryPage',
+    component: EntryPage // 对应的页面组件
   }
+  
 ]
 
 const router = new VueRouter({

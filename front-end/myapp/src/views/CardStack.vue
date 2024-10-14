@@ -60,6 +60,7 @@ export default {
 
     const handleClick = (e) => {
       const card = e.target.closest('.card');
+      // const lastCard = stack.value.lastElementChild;
       if (card && card === stack.value.lastElementChild) {
         card.classList.add('swap');
 
@@ -196,6 +197,7 @@ main {
   user-select: none;
   -webkit-user-select: none;
   pointer-events: auto;
+  position: relative
 }
 
 .btn:hover {
