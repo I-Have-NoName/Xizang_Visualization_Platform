@@ -104,7 +104,12 @@ const routes = [
     path: '/entry/:entryName',
     name: 'entryPage',
     component: EntryPage // 对应的页面组件
-  }
+  },
+  {
+    path: '/baike/:BaikeName',
+    name:'Baike',
+    component:BaiKe
+  },
   
 ]
 

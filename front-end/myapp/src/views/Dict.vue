@@ -1,12 +1,19 @@
 <template>
-  <div>
+  <main style="height: 100%">
+    <head>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+    </head>
+    <body>
+      <div>
     <div class="dictheader" style="height: 60px">
       <button @click="backHome">
         <img class="arrow" src="/static/img/arrow.png">
       </button>
     </div>
     <span style="text-align: center; height: 40px;">
-      <h1>藏百科</h1>
+      <h1 class="ma-shan-zheng-regular" style="font-size: 300%;">藏百科</h1>
     </span>
     <div class="swiper">
     <div @mouseleave="leave" @mouseenter="enter">
@@ -24,6 +31,8 @@
     </div>
   </div>
   </div>
+    </body>
+  </main>
 </template>
 <script>
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
@@ -31,6 +40,7 @@ import {useRouter} from "vue-router/composables";
 import 'swiper/css/swiper.css'
 import BaikeEntry from './/BaikeEntry.vue';
 import baikeData from '../../src/assets/zangbaike.json';
+
 export default {
   components: {
     Swiper,
@@ -120,7 +130,13 @@ export default {
 }
 </script>
 <style scoped>
-
+main{
+  background-image: url(../../public/static/img/baike.png);
+  background-size:100% 100%;
+  background-repeat: no-repeat;
+  /* background-size: cover; */
+  background-attachment: fixed;
+}
 .swiper{
   width:90%;
   height: 100%;
@@ -130,13 +146,18 @@ export default {
   
 }
 .baike-list {
+  background-image: url(../../public/static/img/baike.png);
+  filter: brightness(1.2);
+  /* background-size:100% 100%; */
   display: grid;
   grid-template-columns: 50% 50%; /* 左侧图片占据50%，右侧内容占据50% */
   padding: 16px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  background: linear-gradient(180deg, #79d8cd 0%, #e3eaf4 100%);
-  height: 100%; /* 让卡片区域始终高度均匀 */
+  /* background: linear-gradient(180deg, #79d8cd 0%, #e3eaf4 100%); */
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  height: 92%; /* 让卡片区域始终高度均匀 */
 }
 
 
@@ -156,10 +177,15 @@ a {
     color: inherit;
 }
 
+.ma-shan-zheng-regular {
+  font-family: "Ma Shan Zheng", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
 
 .dictheader {
-  background-color: #f7f8fc;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* 顶部按钮栏的阴影 */
+  /* background-color: #f7f8fc; */
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.1); /* 顶部按钮栏的阴影 */
 }
 .dictheader button {
   position: fixed;

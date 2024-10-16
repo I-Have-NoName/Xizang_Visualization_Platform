@@ -10,7 +10,7 @@ module.exports = {
     open:true,
     proxy: {
       '/api': {
-        target: 'http://localhost:8000',  // 目标API地址
+        target: 'https://api.deepinfra.com/v1/openai/chat/completions',  // 目标API地址
         changeOrigin: true,
         pathRewrite: { '^/api': '' },
       },

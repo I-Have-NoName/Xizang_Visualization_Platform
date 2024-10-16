@@ -8,8 +8,11 @@
       <div v-for="(message, index) in messages" :key="index" class="message" :class="{'user': message.isUser, 'assistant': !message.isUser}">
         <img :src="message.isUser ? '/static/img/me.JPG' : '/static/img/robot.png'" class="avatar">
         <div class="message-content">
-          {{ message.complete ? message.content : message.content + '...' }}
-        </div>
+            <div v-if="message.isMarkdown" v-html="convertMarkdown(message.content)"></div>
+            <div v-else>
+              {{ message.complete ? message.content : message.content + '...' }}
+            </div>
+          </div>
       </div>
 
     </div>
@@ -22,22 +25,33 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onUpdated } from 'vue';
 import axios from 'axios';
-import {useRouter} from "vue-router/composables";
+import { useRouter } from "vue-router/composables";
+import { marked } from 'marked';  // 导入 marked 库
 
-const router = useRouter()
-const backHome = () =>{
+
+const messages = ref([
+  { content: "这里是西藏文旅智能机器人，有什么我可以帮助你的吗？", isUser: false, complete: true }
+]);
+
+onUpdated(() => {
+  // 每次消息更新后，自动滚动到底部
+  const messageContainer = document.querySelector('.messages');
+  messageContainer.scrollTop = messageContainer.scrollHeight;
+});
+
+const router = useRouter();
+const backHome = () => {
   router.push({ name: 'HomePage' });
 }
 
-const messages = ref([
-  { content: "这里是西藏文旅智能机器人，有什么我可以帮助你的吗？", isUser: false, complete:true }
-]);
 
 const userInput = ref('');
-const API_URL = 'http://localhost:8000/v1/chat/completions';
-const API_KEY = 'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ1c2VyLWNlbnRlciIsImV4cCI6MTcyNDY0ODE2NywiaWF0IjoxNzE2ODcyMTY3LCJqdGkiOiJjcGFtN3BwcDJrMTIycjZrZjZkZyIsInR5cCI6InJlZnJlc2giLCJzdWIiOiJjcGFtN3BwcDJrMTIycjZrZjZhZyIsInNwYWNlX2lkIjoiY3BhbTdwcHAyazEyMnI2a2Y2OWciLCJhYnN0cmFjdF91c2VyX2lkIjoiY3BhbTdwcHAyazEyMnI2a2Y2OTAifQ.gHumu0Ies3swxPI89v_gn7dFkcYfUKYUmCte9J38jdC-JxryYgxSTPPAWdrd1g_8FOkTKP347TEvKcr6CuORww';
+
+function convertMarkdown(markdown) {
+  return marked(markdown);  // 使用 marked 将 Markdown 转换为 HTML
+}
 
 function typeMessage(message) {
   let typedContent = '';
@@ -45,11 +59,12 @@ function typeMessage(message) {
   const typingSpeed = 10;  // milliseconds between each character
   const fullContent = message.content;  // Store the full content temporarily
   message.content = '';  // Initialize message content as empty
-
+  message.isMarkdown = true;
   const typingInterval = setInterval(() => {
     typedContent += fullContent[index];
     index++;
-
+    message.content = typedContent;
+    
     if (index === fullContent.length) {
       clearInterval(typingInterval);
       message.content = typedContent;  // Update the message content when complete
@@ -59,27 +74,14 @@ function typeMessage(message) {
   }, typingSpeed);
 }
 
-
-
 async function sendMessage() {
   if (userInput.value.trim() !== '') {
     const userMessage = { content: userInput.value, isUser: true, complete: true };
     messages.value.push(userMessage);
     userInput.value = ''; // Clear input after sending
 
-    const data = {
-      model: "kimi",
-      messages: [{ role: "user", content: userMessage.content }],
-      use_search: true
-    };
-
-    const headers = {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${API_KEY}`
-    };
-
     try {
-      const result = await axios.post(API_URL, data, { headers });
+      const result = await axios.post('http://localhost:5000/chat', { message: userMessage.content });
       const aiResponse = result.data.choices[0].message.content;
       const aiMessage = { content: aiResponse, isUser: false, complete: false };
       messages.value.push(aiMessage);
@@ -89,8 +91,8 @@ async function sendMessage() {
       messages.value.push({ content: "Failed to get response from the API.", isUser: false, complete: true });
     }
   }
-
 }
+
 </script>
 
 <style scoped>

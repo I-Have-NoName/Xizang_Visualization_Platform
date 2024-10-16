@@ -1,11 +1,15 @@
 <template>
-    <div>
+    <div >
       <button @click="backHome">
         <img class="arrow" src="/static/img/arrow.png">
       </button>
+      <h1 style="display: flex;text-align: center;font-family: 楷体, Tahoma, Geneva, Verdana, sans-serif;font-size: 350%;margin: 0%;align-content: center;justify-content: center;padding-top: 30px;">藏地景致</h1>
       <div class="baike-list">
-      <BaikeEntry v-for="(item, index) in entries" :key="index" :entry="item" />
+      <BaikeEntry v-for="(item, index) in entry" :key="index" :entry="item" />
       </div>
+      <button class="scroll-top" @click="scrollToTop">
+      ↑ 回到顶部
+      </button>
     </div>
   </template>
   
@@ -21,16 +25,42 @@
     },
     data() {
       return {
-        entries: baikeData
+        entry: baikeData
       };
     },
     mounted(){
-      this.router = useRouter()
-      console.log(this.entries)
+      // this.router = useRouter()
+      // console.log(this.entries)
+      const entryId = this.$route.params.BaikeName; // 获取 URL 中的 id 参数
+    console.log("名字:"+entryId);
+    // this.entry = baikeData.find(item => item.location == entryId); // 根据 name 查找对应的词条
+    this.entry = (baikeData.filter(item => item.location == entryId));
+    if(entryId == null){
+      this.entry = baikeData;
+
+    }
+    console.log(this.entry)
+    this.router = useRouter();
+    },
+    beforeDestroy() {
+      window.removeEventListener('scroll', this.handleScroll); // 清理事件监听
     },
     methods:{
     backHome(){
       this.router.push({name:'HomePage'})
+    },
+    scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' }); // 平滑滚动到顶部
+    },
+    handleScroll() {
+        const scrollTopButton = document.querySelector('.scroll-top');
+        const scrollTop = document.documentElement.scrollTop; // 获取滚动高度
+        console.log('滚动高度:', scrollTop); // 打印当前滚动高度
+        if (scrollTop > 300) {
+          scrollTopButton.classList.add('visible'); // 添加visible类
+        } else {
+          scrollTopButton.classList.remove('visible'); // 移除visible类
+        }
     }
   },
     
@@ -40,82 +70,42 @@
   
   <style scoped>
 
-  
+  *{
+    background-image: url(../../public/static/img/zangbaike.png);
+    background-attachment: fixed;
+  }
+.baike-list {
+  display: flex; /* 使用Flexbox布局 */
+  flex-direction: column; /* 纵向排列 */
+  align-items: center; /* 水平居中对齐 */
+  justify-content: center; /* 垂直居中对齐（在有高度限制的情况下） */
+  margin-top: 80px; /* 可选：给上方留出空间，以避免按钮遮挡 */
+}
+
 .entry {
-  display: inline-flex;
-  flex-direction: column;
+  display: flex; /* 修改为flex布局以便于内容对齐 */
+  flex-direction: column; /* 纵向排列内容 */
+  align-items: center; /* 内容水平居中对齐 */
   background-color: #fff;
   border: 1px solid #e5e5e5;
-  border-radius: 5px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  box-shadow: 10px 2px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
   margin: 20px 0;
   width: 100%;
-  max-width: 1000px;
+  max-width: 1000px; /* 最大宽度 */
+  box-shadow: #000;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 
-@media (min-width: 500px) {
+/* 添加响应式设计，使在小屏幕上仍能良好显示 */
+@media (max-width: 500px) {
   .entry {
     flex-direction: column;
   }
-}
+} 
 
-.entry {
-    margin-bottom: 2rem; /* 为每个条目添加间隔 */
-  }
-  
-  .content {
-    display: flex;
-    align-items: center; /* 垂直居中对齐 */
-    justify-content: space-between; /* 水平间隔 */
-  }
-  
-  .image {
-    flex: 1; /* 图片占据的空间 */
-    padding: 1rem; /* 内边距 */
-    display: flex; /* 使用flex布局 */
-    justify-content: center; /* 水平居中图片 */
-    align-items: center; /* 垂直居中图片 */
-  }
-  
-  .image img {
-    width: 100%; /* 图片宽度占满容器 */
-    height: auto; /* 自适应高度 */
-    max-height: 400px; /* 最大高度 */
-    object-fit: cover; /* 按比例裁剪图片 */
-    border-radius: 10px; /* 圆角 */
-  }
-  
-  .text {
-    flex: 1; /* 文本占据的空间 */
-    padding: 1rem; /* 内边距 */
-  }
-  
-  .text h2,
-  .text h4 {
-    text-align: center; /* 标题居中 */
-    margin: 0;
-    text-transform: uppercase; /* 标题大写 */
-  }
-  
-  .text h2 {
-    font-size: 28px;
-    font-weight: bold;
-    margin-bottom: 8px;
-  }
-  
-  .text h4 {
-    font-size: 20px;
-    color: #666;
-    margin-bottom: 16px;
-  }
-  
-  .text p {
-    font-size: 16px;
-    line-height: 1.5;
-    text-align: justify; /* 段落内容两端对齐 */
-    margin-top: auto; /* 将段落推到右侧下部 */
-  }
 
 button {
   position: fixed;
@@ -159,6 +149,27 @@ img.arrow {
 
 button svg {
   width: 65%;
+}
+
+.scroll-top {
+  position: fixed; /* 固定在页面右下角 */
+  bottom: 20px; /* 距离底部20像素 */
+  right: 20px; /* 距离右边20像素 */
+  padding: 10px 15px; /* 内边距 */
+  background-color: #007BFF; /* 按钮背景颜色 */
+  color: white; /* 按钮文字颜色 */
+  border: none; /* 去掉边框 */
+  border-radius: 5px; /* 圆角 */
+  cursor: pointer; /* 鼠标指针样式 */
+  font-size: 16px; /* 字体大小 */
+  opacity: 0; /* 初始透明度为0 */
+  visibility: hidden; /* 初始不可见 */
+  transition: opacity 0.3s ease, visibility 0.3s ease; /* 添加过渡效果 */
+}
+
+.scroll-top.visible {
+  opacity: 1; /* 设置透明度为1 */
+  visibility: visible; /* 设置可见 */
 }
 </style>
   

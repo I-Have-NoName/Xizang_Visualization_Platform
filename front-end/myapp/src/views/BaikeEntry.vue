@@ -5,7 +5,7 @@
         <h2>{{ entry.name }}</h2>
       <h4>{{ entry.translation }}</h4>
       <!-- <h4>{{ entry.location }}</h4> -->
-      
+      <hr>
       <p>{{ entry.introduction }}</p>
       </div>
     </div>
@@ -33,10 +33,12 @@
 }
 
 .content {
-  display: flex;
+  /* display: flex; */
   flex-direction: column;
   justify-content: space-between;
   padding: 20px;
+  height: 100%;
+  
 }
 
 .content h2,
@@ -59,10 +61,27 @@
 }
 
 .content p {
-  font-size: 16px;
+  padding: 3px;
+  height: 300px;
+  font-size: 15px;
+  display: -webkit-box; /* 保证设置为弹性盒子模型 */
+  -webkit-box-orient: vertical; /* 必须设置的属性 */
+  -webkit-line-clamp: 12; /* 显示12行后截断 */
+  text-overflow: ellipsis;
+  overflow: hidden; /* 确保溢出的内容被隐藏 */
   line-height: 1.5;
   text-align: justify; /* 使段落内容两端对齐 */
-  margin-top: auto; /* 将段落推到右侧下部 */
+  margin-top: 10px; /*将段落推到右侧下部*/
+  vertical-align: top;
+  margin-bottom: 16px;
+  text-indent: 2em;
+  /* border: solid; */
+  /* border-style: outset; */
+  border-radius: 10px;
+}
+.content p {
+  max-height: 18em; /* 根据行高和行数来设置 */
+  overflow: hidden;
 }
 
   </style>

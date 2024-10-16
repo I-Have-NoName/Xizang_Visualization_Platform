@@ -1,8 +1,17 @@
 <template>
-  <section>
+  
+  <main>
+    <div class="wave">
+        <div class="wave-item wave1"></div>
+        <div class="wave-item wave2"></div>
+        <div class="wave-item wave3"></div>
+    </div>
+    <section>
+    
     <button class="backbutton" >
       <img @click="backHome" class="arrow" src="/static/img/arrow.png">
     </button>
+    
     <h2>云上藏境</h2>
     <p>一体化的，帮助你了解藏族地区发展，了解景点、经济、发展的一站式平台。</p>
     <div class="cards">
@@ -28,6 +37,7 @@
       </div>
     </div>
   </section>
+  </main>
 </template>
 
 <script>
@@ -138,6 +148,7 @@ body {
 
 
 section {
+  
   font-family: "Poppins", sans-serif;
   font-weight: 300;
   font-style: normal;
@@ -274,5 +285,76 @@ section {
   }
 }
 
+* {
+    padding: 0px;
+    margin: 0px;
 
+}
+
+.wave {
+    position: fixed;
+    bottom: 0px;
+    height: 110px;
+    width: 100%;
+    overflow: hidden;
+    background:
+        repeating-linear-gradient(to bottom, #fff, #90cef1);
+}
+
+.wave .wave-item {
+    position: absolute;
+    width: 200%;
+    height: 100%;
+    background-size: 50% 100%;
+    opacity: 0.4;
+
+}
+
+.wave .wave1 {
+    top: 20px;
+    left: -100%;
+    opacity: 0.2;
+    animation: to-right 15s infinite linear;
+    background-image: url(../assets/css/images/wave1.png);
+}
+
+.wave .wave2 {
+    top: 30px;
+    left: 0;
+    opacity: 0.3;
+    animation: to-left 25s infinite linear;
+    background-image: url(../assets/css/images/wave2.png);
+}
+
+.wave .wave3 {
+    top: 45px;
+    left: -100%;
+    animation: to-right 35s infinite linear;
+    background-image: url(../assets/css/images/wave3.png);
+}
+
+
+@keyframes to-right {
+    0% {
+        transform: translateX(0) translateZ(0) scaleY(1)
+    }
+
+    50% {
+        transform: translateX(25%) translateZ(0) scaleY(0.7)
+    }
+
+    100% {
+        transform: translateX(50%) translateZ(0) scaleY(1)
+    }
+}
+
+@keyframes to-left {
+    from {
+        transform: translate(0%, 0px);
+    }
+
+    to {
+        transform: translate(-50%, 0px);
+    }
+}
 </style>

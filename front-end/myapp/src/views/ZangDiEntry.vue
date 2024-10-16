@@ -29,60 +29,47 @@
   
   <style scoped>
   .entry {
-    margin-bottom: 2rem; /* 为每个条目添加间隔 */
-  }
-  
-  .content {
-    display: flex;
-    align-items: center; /* 垂直居中对齐 */
-    justify-content: space-between; /* 水平间隔 */
-  }
-  
-  .image {
-    flex: 1; /* 图片占据的空间 */
-    padding: 1rem; /* 内边距 */
-    display: flex; /* 使用flex布局 */
-    justify-content: center; /* 水平居中图片 */
-    align-items: center; /* 垂直居中图片 */
-  }
-  
-  .image img {
-    width: 100%; /* 图片宽度占满容器 */
-    height: auto; /* 自适应高度 */
-    max-height: 400px; /* 最大高度 */
-    object-fit: cover; /* 按比例裁剪图片 */
-    border-radius: 10px; /* 圆角 */
-  }
-  
-  .text {
-    flex: 1; /* 文本占据的空间 */
-    padding: 1rem; /* 内边距 */
-  }
-  
-  .text h2,
-  .text h4 {
-    text-align: center; /* 标题居中 */
-    margin: 0;
-    text-transform: uppercase; /* 标题大写 */
-  }
-  
-  .text h2 {
-    font-size: 28px;
-    font-weight: bold;
-    margin-bottom: 8px;
-  }
-  
-  .text h4 {
-    font-size: 20px;
-    color: #666;
-    margin-bottom: 16px;
-  }
-  
-  .text p {
-    font-size: 16px;
-    line-height: 1.5;
-    text-align: justify; /* 段落内容两端对齐 */
-    margin-top: auto; /* 将段落推到右侧下部 */
-  }
+  display: flex; /* 使用Flexbox布局 */
+  align-items: flex-start; /* 垂直对齐到顶部 */
+  padding: 20px; /* 内边距 */
+}
+
+.content {
+  display: flex; /* 嵌套的Flexbox布局 */
+  width: 100%; /* 设置宽度为100% */
+}
+
+.image {
+  flex: 1; /* 左侧图像占据一半空间 */
+  max-width: 50%; /* 最多占用50%宽度 */
+}
+
+.image img {
+  width: 100%; /* 图像自适应宽度 */
+  height: auto; /* 高度自动 */
+  border-radius: 8px; /* 添加圆角效果（可选） */
+}
+
+.text {
+  flex: 1; /* 右侧文本占据一半空间 */
+  padding-left: 20px; /* 左边距，给图像留出空间 */
+}
+
+h2 {
+  margin: 0; /* 去掉默认的外边距 */
+  font-size: 24px; /* 标题大小 */
+}
+
+h4 {
+  margin: 5px 0; /* 设置上下外边距 */
+  font-size: 18px; /* 副标题大小 */
+  color: #555; /* 设置副标题颜色 */
+}
+
+p {
+  line-height: 1.6; /* 行高，增加可读性 */
+  color: #333; /* 设置段落颜色 */
+}
+
   </style>
   

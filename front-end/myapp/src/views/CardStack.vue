@@ -2,10 +2,12 @@
   <main>
     <!-- <div class="building"> -->
       <div class="content">
-        <h1>XiZang</h1>
+        <h1 >
+          <img src="../../public/static/img/xizangwenzi.png" alt="" style="width: 300px; height: 280px;">
+        </h1>
         <p>
-          西藏是个神秘的地方，有着灿烂的阳光，洁白的云朵，纯净的天空，稀薄的空气，连绵的雪山，安静的湖泊。 到了拉萨，我看见周围都是高山，山像连绵不断的长城，山上连一棵树木也没有，全是奇形怪状的石头。
-          一路朝拜，从不回首。有的耗尽家财，有的途中抱恙，但依然向前。朴实无华，人间天堂，大美西藏！我看见一座座山一座座山川，一座座山川相连，呀啦索那就是青藏高原。
+          在那遥远的天边，有一片神秘而圣洁的土地，它叫做西藏。踏上西藏的征程，就仿佛踏入了一个梦幻的世界。雄伟的雪山高耸入云，洁白的雪顶闪耀着圣洁的光芒，神秘的湖泊如同大地的眼睛，深邃而宁静。
+          沿着古老的道路前行，我们能感受到岁月的沉淀和历史的厚重。寺庙中传来阵阵诵经声，那是信仰的力量在流淌。西藏的每一处风景都蕴含着无尽的故事，在这里，你可以抛开世俗与自己的内心对话。让我们一起走进西藏，去揭开那神秘的面纱，探寻那属于我们心灵的栖息地，在这片圣土上留下我们最深刻的足迹和最难忘的回忆。
         </p>
         <button class="btn" @click="goToHomePage">探索更多</button>
       </div>
@@ -120,10 +122,15 @@ body {
 }
 
 main {
+  background-image: url('../../public/static/img/background.png'); /* 替换为图片的实际路径 */
+  background-size: cover; /* 确保背景图片覆盖整个区域 */
+  background-position: center; /* 图片居中显示 */
+  background-attachment: fixed; /* 背景图固定，不随页面滚动 */
+  background-repeat: no-repeat; /* 禁止背景图重复 */
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 5fr 4fr;
   grid-template-rows: 1fr;
   place-items: center;
   min-height: 100vh;
@@ -146,7 +153,7 @@ main {
   display: flex;
   flex-direction: column;  /* Ensures that children are stacked vertically */
   align-items: flex-start; /* Aligns items to the left */
-  padding-left: 120px;
+  padding-left:240px;
   color: #c7c7c7c9;
 }
 .content p{
@@ -157,23 +164,30 @@ main {
 }
 
 .content h1 {
+  background-image: url(../../public/static/img/xizangwenzi.png);
+  z-index: 0;
   font-family: "Dancing Script", cursive;
   font-size: clamp(2.5rem, 4vw, 6rem);
   font-weight: 700;
-  background: -webkit-linear-gradient(0deg, #ff8c91, #ffcc6f);
+  /* background: -webkit-linear-gradient(0deg, #ff8c91, #ffcc6f); */
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   line-height: 1.1;
-  margin-bottom: 36px;
+  margin-bottom: -40px;
   padding-left: 10px;
 }
 
 .content p {
   font-size: clamp(0.9rem, 4vw, 1.2rem);
-  color: black;
+  color: rgb(23, 8, 8);
   line-height: 1.6;
-  padding-right: 100px;
+  font-weight: bolder;
+  padding-right: 50px;
+}
+
+h2, p {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* 添加文字阴影 */
 }
 
 .btn {
